@@ -28,23 +28,24 @@ class VendingMachine:
     def showItems(self):
         print('\nitems available \n***************')
 
+        for item in self.items: # for each item in this vending machine
+            if item.stock == 0: # if the stock of this item is 0
+                self.items.remove(item) # remove this item from being displayed
         for item in self.items:
-            if item.stock == 0:
-                self.items.remove(item)
-        for item in self.items:
-            print(item.name + ": " "R", item.price)
+            print(item.name + ": " "R", item.price) # otherwise print this item and show its price
 
         print('***************\n')
 
     def addCash(self, money):
-        self.amount = self.amount + money
+        self.amount = self.amount + money # add money
 
-    def buyItem(self, item):
+    def buyItem(self, item): # if the amount you put is less than the price
         if self.amount < item.price:
-            print('You can\'t buy this item. Insert more coins.')
+            print('You can\'t buy this item. Insert more coins.') # then obvs you cant buy this item
         else:
             self.amount -= item.price # subtract item price from available cash
-            item.buyFromStock()
+            item.buyFromStock() # call this function to decrease the item inventory by 1
+            # (what if we buy more than one?)
             print('You got ' +item.name)
             print('Cash remaining: ' + str(self.amount))
 
@@ -71,7 +72,7 @@ class VendingMachine:
 
     def checkRefund(self):
         if self.amount > 0:
-            print(self.amount + " refunded.")
+            print(str(self.amount) + " refunded.")
             self.amount = 0
 
         print('Thank you, have a nice day!\n')
@@ -85,11 +86,13 @@ def vend():
     item3 = Item('chips',  2.0,  3)
     item4 = Item('gum',  0.50, 1)
     item5 = Item('mints',0.75,  3)
+    item6 = Item('milkshake',1.2, 5 )
     machine.addItem(item1)
     machine.addItem(item2)
     machine.addItem(item3)
     machine.addItem(item4)
     machine.addItem(item5)
+    machine.addItem(item6)
 
     print('Welcome to the vending machine!\n***************')
 
